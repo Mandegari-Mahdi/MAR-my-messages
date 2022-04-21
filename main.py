@@ -8,14 +8,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 # initialization
-user_username = input("Enter your 'sess' id: ")
-user_pass = input("Enter your pass: ")
+with open('./user_info.ini', 'r') as f:
+    data = f.readlines()
+    user_username = data[0].split(" = ")[1].replace("\n", "")
+    user_pass = data[1].split(" = ")[1].replace("\n", "")
+    print(f"Username: {user_username}\nPassword: {user_pass}")
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 # ATTENTION: for work well in your case, Download "chromedriver.exe" and replace your PATH with mine below.
-#                          |---------------------CHANGE THIS---------------------|
-driver = webdriver.Chrome(r"C:/Users/mahdi/Desktop/chrome driver/chromedriver.exe", options=options)
+#                           |---CHANGE THIS---|
+driver = webdriver.Chrome(r"./chromedriver.exe", options=options)
 driver.get("https://sess.sku.ac.ir")
 
 wait = WebDriverWait(driver, 10)
